@@ -11,12 +11,12 @@ module UTMConversion
         @data = {}
       end
 
-      def store(session, utm_params = nil)
+      def store(session_id, utm_params = nil)
         utm_data = utm_params || utm_data(session)
-        return if utm_data.blank?
+        return if utm_data.nil? || utm_data == {}
 
-        @data[session.id] = {
-          utm_data: utm_params || utm_data(session),
+        @data[session_id] = {
+          utm_data: utm_data,
           conversions: []
         }
       end
@@ -25,16 +25,8 @@ module UTMConversion
         @data[session_id]&.fetch(:utm_data, nil)
       end
 
-      def record_conversion(session, event_data)
-        return if utm_data(session).blank?
-
-        @data[session.id][:conversions] << event_data if @data[session_id]
-      end
-
-      private
-
-      def utm_data(session)
-        @utm_data ||= UTMConversion::Session::UTMData.load(session)
+      def record_conversion(session_id, event_data)
+        @data[session_id][:conversions] << event_data if @data[session_id]
       end
     end
   end

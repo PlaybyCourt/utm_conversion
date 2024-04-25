@@ -4,7 +4,7 @@ module UTMConversion
   module Storage
     # Base class for storage adapters
     class Base
-      def store(session, utm_params = nil)
+      def store(session_id, utm_params = nil)
         raise NotImplementedError
       end
 
@@ -12,7 +12,7 @@ module UTMConversion
         raise NotImplementedError
       end
 
-      def record_conversion(session, event_data)
+      def record_conversion(session_id, event_data)
         raise NotImplementedError
       end
     end
