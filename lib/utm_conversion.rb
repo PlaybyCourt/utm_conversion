@@ -13,7 +13,7 @@ module UTMConversion
   class Error < StandardError; end
 
   class << self
-    attr_accessor :storage_adapter
+    attr_accessor :storage_adapter, :store_utm_data_in_session, :store_utm_date_in_storage_adapter
 
     def configure
       yield self
@@ -33,4 +33,6 @@ module UTMConversion
   end
 
   self.storage_adapter ||= UTMConversion::Storage::InMemory.new
+  self.store_utm_data_in_session = true
+  self.store_utm_date_in_storage_adapter = true
 end
