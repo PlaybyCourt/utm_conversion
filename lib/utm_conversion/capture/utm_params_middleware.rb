@@ -30,8 +30,20 @@ module UTMConversion
       def store_utm_data(session, utm_params)
         return if utm_params.nil? || utm_params == {}
 
-        UTMConversion::Session::UTMData.store(session, utm_params) if UTMConversion.store_utm_data_in_session
-        UTMConversion.storage_adapter.store(session.id, utm_params) if UTMConversion.store_utm_date_in_storage_adapter
+        store_to_session(session, utm_params)
+        store_to_storage_adapter(session, utm_params)
+      end
+
+      def store_to_session(session, utm_params)
+        return unless UTMConversion.store_utm_data_in_session
+
+        UTMConversion::Session::UTMData.store(session, utm_params)
+      end
+
+      def store_to_storage_adapter(session, utm_params)
+        return unless UTMConversion.store_utm_data_in_storage_adapter
+
+        UTMConversion.store_utm_data(session.id, utm_params)
       end
     end
   end

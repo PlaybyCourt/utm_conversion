@@ -14,7 +14,7 @@ module UTMConversion
 
   class << self
     attr_accessor :storage_adapter, :max_utm_value_length,
-                  :store_utm_data_in_session, :store_utm_date_in_storage_adapter,
+                  :store_utm_data_in_session, :store_utm_data_in_storage_adapter,
                   :utm_params
 
     def configure
@@ -36,7 +36,7 @@ module UTMConversion
 
   self.storage_adapter ||= UTMConversion::Storage::InMemory.new
   self.store_utm_data_in_session = true
-  self.store_utm_date_in_storage_adapter = true
+  self.store_utm_data_in_storage_adapter = true
   self.max_utm_value_length = 128
   self.utm_params = %w[
     utm_source utm_medium utm_campaign utm_term utm_content utm_id utm_source_platform
