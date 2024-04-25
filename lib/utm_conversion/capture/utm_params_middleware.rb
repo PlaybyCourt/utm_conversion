@@ -4,8 +4,6 @@ module UTMConversion
   module Capture
     # Middleware to capture UTM parameters from the query string
     class UTMParamsMiddleware
-      UTM_PARAMS = %w[utm_source utm_medium utm_campaign utm_term utm_content].freeze
-
       def initialize(app)
         @app = app
       end
@@ -20,7 +18,11 @@ module UTMConversion
       private
 
       def extract_utm_params(request)
-        UTM_PARAMS.each_with_object({}) do |param, hash|
+        UTMConversion.utm_params.each_with_object({}) do |param, hash|
+          value = request.params[param]
+
+          next if value&.length&.> UTMConversion.max_utm_value_length
+
           hash[param] = request.params[param] if request.params[param]
         end
       end
