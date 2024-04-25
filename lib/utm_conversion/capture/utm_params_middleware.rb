@@ -29,7 +29,7 @@ module UTMConversion
         return if utm_params.nil? || utm_params == {}
 
         UTMConversion::Session::UTMData.store(session, utm_params)
-        UTMConversion.storage_adapter.store(session)
+        UTMConversion.storage_adapter.store(session.id, utm_params)
       end
     end
   end

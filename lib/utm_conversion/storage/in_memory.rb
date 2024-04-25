@@ -12,11 +12,10 @@ module UTMConversion
       end
 
       def store(session_id, utm_params = nil)
-        utm_data = utm_params || utm_data(session)
-        return if utm_data.nil? || utm_data == {}
+        return if utm_params.nil? || utm_params == {}
 
         @data[session_id] = {
-          utm_data: utm_data,
+          utm_data: utm_params,
           conversions: []
         }
       end
